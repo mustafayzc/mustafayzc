@@ -1,0 +1,7 @@
+path: 'C:\\Users\\mukre\\Desktop\\datadeneme'
+
+train: images
+val: images
+
+names:
+  - 'ferre'
