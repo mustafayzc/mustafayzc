@@ -1,3 +1,0 @@
-Genişlik: 37, Yükseklik: 18
-Alan: 666
-x kordinat:301,y kordinat555
