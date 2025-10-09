@@ -26,11 +26,15 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      # Çıktıları 'output' branch'ine dağıt
-      - name: Deploy dist to 'output' branch
-        uses: crazy-max/ghaction-github-pages@v4
+      - name: Generate SVG (snake)
+        uses: Platane/snk/svg-only@v3
         with:
-          target_branch: output
-          build_dir: dist
+          github_user_name: mustafayzc # Kullanıcı adınız
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+        
+        
         env:
+          # Bu, Action'a özel katkı verilerini okuma yetkisi verir.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
