@@ -1,0 +1,38 @@
+name: Generate contribution snake
+
+on:
+  schedule:
+    # Her 12 saatte bir çalışır
+    - cron: '0 0,12 * * *'
+  workflow_dispatch:
+
+permissions:
+  # 'output' branch'ine push yapmak için zorunlu
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 1. Adım: Snake SVG dosyasını oluşturur
+      - name: Generate SVG (snake)
+        uses: Platane/snk/svg-only@v3
+        with:
+          # Kullanıcı adı doğru, bu harika.
+          github_user_name: mustafayzc 
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+
+      # 2. Adım: Oluşturulan SVG dosyasını 'output' branch'ine dağıtır (Deploy)
+      - name: Deploy dist to 'output' branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          # Repoya yazma yetkisi için GITHUB_TOKEN kullanılır
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
